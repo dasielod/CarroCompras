@@ -1,4 +1,4 @@
-package com.shoppingcar.demo;
+package com.carrocompra.demo;
 
 import org.apache.commons.lang3.StringUtils;
 

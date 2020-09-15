@@ -1,7 +1,7 @@
-package com.shoppingcar.demo.dto.mapper;
+package com.carrocompra.demo.dto.mapper;
 
-import com.shoppingcar.demo.domain.Client;
-import com.shoppingcar.demo.dto.ClientDto;
+import com.carrocompra.demo.domain.Client;
+import com.carrocompra.demo.dto.ClientDto;
 import org.mapstruct.Mapper;
 
 /**

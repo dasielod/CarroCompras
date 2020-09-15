@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.apierror;
+package com.carrocompra.demo.apierror;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

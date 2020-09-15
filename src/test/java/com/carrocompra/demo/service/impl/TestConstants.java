@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.service.impl;
+package com.carrocompra.demo.service.impl;
 
 public interface TestConstants {
 

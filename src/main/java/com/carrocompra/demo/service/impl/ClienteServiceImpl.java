@@ -4,7 +4,7 @@ package com.carrocompra.demo.service.impl;
 import com.carrocompra.demo.apierror.MyError;
 import com.carrocompra.demo.domain.Client;
 import com.carrocompra.demo.dto.ClientDto;
-import com.carrocompra.demo.service.ClientService;
+import com.carrocompra.demo.service.ClienteService;
 import com.carrocompra.demo.dto.mapper.ClientMapper;
 import com.carrocompra.demo.repository.ClienteRepository;
 import lombok.extern.slf4j.Slf4j;
@@ -25,52 +25,42 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @Slf4j
-public class ClientServiceImpl implements ClientService {
+public class ClienteServiceImpl implements ClienteService {
 
     private final ClienteRepository clienteRepository;
 
     private ClientMapper clientMapper;
 
-    public ClientServiceImpl(ClienteRepository clienteRepository, ClientMapper clientMapper) {
+    public ClienteServiceImpl(ClienteRepository clienteRepository, ClientMapper clientMapper) {
         this.clienteRepository = clienteRepository;
         this.clientMapper = clientMapper;
     }
 
     /**
-     * Save a client.
+     * Guardar cliente
      *
-     * @param clientDto the entity to save
-     * @return the persisted entity
+     * @param clientDto objeto qeu se salva
+     * @return the entidad que se guardó
      */
     public ClientDto save(ClientDto clientDto) {
-        log.debug("Request to save Client : {}", clientDto);
+        log.debug("Request para salver el Cliente : {}", clientDto);
         Client client = clientMapper.toEntity(clientDto);
         client = clienteRepository.save(client);
         return clientMapper.toDto(client);
     }
 
 
-    /**
-     * Get all clients.
-     *
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public List<ClientDto> findAll() {
-        log.debug("Request to get all clients");
-        return clienteRepository.findAll().stream()
-                .map(clientMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
-    }
+
 
     /**
-     * Get all clients by id.
+     * Obener todos los clientes por id
+     *
      * @param id
-     * @return Optional of Client
+     * @return Optional de Client
      */
     @Transactional(readOnly = true)
     public Single<Object> findAllById(Long id) {
-        log.debug("Request to get all clients by Id");
+        log.debug("Request obtener todos los clientes por id");
         return Single.create(singleSubscriber ->{
             final Optional<ClientDto> optionalClient = clienteRepository.findById(id).map(clientMapper::toDto);
             if (!optionalClient.isPresent()){
@@ -85,6 +75,17 @@ public class ClientServiceImpl implements ClientService {
             }
         });
     }
-
+    /**
+     * Obtener todos los clientes
+     *
+     * @return lista de clientes
+     */
+    @Transactional(readOnly = true)
+    public List<ClientDto> findAll() {
+        log.debug("Request to get all clients");
+        return clienteRepository.findAll().stream()
+                .map(clientMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
 
 }

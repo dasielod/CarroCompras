@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * Spring Data  repository for the Sale entity.
  */
 @Repository
-public interface SaleDetailRepository extends JpaRepository<SaleDetail, Long> {
+public interface DetalleVentaRepository extends JpaRepository<SaleDetail, Long> {
 
 }

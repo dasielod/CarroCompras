@@ -1,6 +1,6 @@
-package com.shoppingcar.demo.apierror;
+package com.carrocompra.demo.apierror;
 
-import com.shoppingcar.demo.LowerCaseClassNameResolver;
+import com.carrocompra.demo.LowerCaseClassNameResolver;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.annotation.JsonTypeIdResolver;
 import lombok.Data;

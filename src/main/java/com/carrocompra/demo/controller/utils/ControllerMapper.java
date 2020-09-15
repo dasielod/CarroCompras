@@ -1,6 +1,9 @@
-package com.shoppingcar.demo.controller.utils;
+package com.carrocompra.demo.controller.utils;
 
-import com.shoppingcar.demo.controller.*;
+import com.carrocompra.demo.controller.ClientController;
+import com.carrocompra.demo.controller.ProductController;
+import com.carrocompra.demo.controller.VentaController;
+import com.carrocompra.demo.controller.UsuarioController;
 
 public class ControllerMapper {
 
@@ -9,15 +12,15 @@ public class ControllerMapper {
             ClientController.writeLog(text);
 
         } else {
-            if (name.contains(SaleController.class.getCanonicalName())) {
-                SaleController.writeLog(text);
+            if (name.contains(VentaController.class.getCanonicalName())) {
+                VentaController.writeLog(text);
             } else {
                 if (name.contains(ProductController.class.getCanonicalName())) {
                     ProductController.writeLog(text);
 
                 } else {
-                    if (name.contains(UserController.class.getCanonicalName())) {
-                        UserController.writeLog(text);
+                    if (name.contains(UsuarioController.class.getCanonicalName())) {
+                        UsuarioController.writeLog(text);
 
                     }
                 }

@@ -1,4 +1,4 @@
-package com.shoppingcar.demo;
+package com.carrocompra.demo;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

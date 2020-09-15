@@ -10,13 +10,13 @@ import java.util.Optional;
 /**
  * Service interface for the Sale entity.
  */
-public interface SaleService {
+public interface VentaService {
 
     SaleDto save(SaleDto clientDto);
 
-    List<SaleDto> findAll();
-
     Optional<SaleDto> findOne(Long id);
+
+    List<SaleDto> findAll();
 
     Single<List<SaleDto>> findAllSalesById(Long id);
 

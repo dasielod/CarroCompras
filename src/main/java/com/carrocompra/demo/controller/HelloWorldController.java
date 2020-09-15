@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.controller;
+package com.carrocompra.demo.controller;
 
 import lombok.extern.log4j.Log4j2;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Log4j2
 public class HelloWorldController {
 
-	@RequestMapping("/hello")
+	@RequestMapping("/hola")
 	public String helloWorld(@RequestParam(value="name", defaultValue="World") String name) {
 
 		log.trace("A TRACE Message");

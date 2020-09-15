@@ -1,4 +1,4 @@
-package com.shoppingcar.demo;
+package com.carrocompra.demo;
 
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.jsontype.impl.TypeIdResolverBase;

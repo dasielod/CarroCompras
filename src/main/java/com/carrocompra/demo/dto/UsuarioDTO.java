@@ -1,6 +1,6 @@
 package com.carrocompra.demo.dto;
 
-public class User {
+public class UsuarioDTO {
 
 	private String user;
 	private String pwd;

@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Service interface for the Client entity.
  */
-public interface ClientService {
+public interface ClienteService {
 
     ClientDto save(ClientDto clientDto);
 

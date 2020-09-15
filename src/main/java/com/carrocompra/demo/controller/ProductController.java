@@ -1,10 +1,9 @@
-package com.shoppingcar.demo.controller;
+package com.carrocompra.demo.controller;
 
-import com.shoppingcar.demo.dto.ProductDto;
-import com.shoppingcar.demo.exceptions.ProductException;
-import com.shoppingcar.demo.service.ProductService;
+import com.carrocompra.demo.dto.ProductDto;
+import com.carrocompra.demo.exceptions.ProductException;
+import com.carrocompra.demo.service.ProductoService;
 import lombok.extern.log4j.Log4j2;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,17 +11,16 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Optional;
 
 @Log4j2
 @RestController
 @RequestMapping("/api")
 public class ProductController {
 
-    private final ProductService productService;
+    private final ProductoService productoService;
 
-    public ProductController(ProductService productService) {
-        this.productService = productService;
+    public ProductController(ProductoService productoService) {
+        this.productoService = productoService;
     }
 
     public static void writeLog(String text) {
@@ -30,70 +28,70 @@ public class ProductController {
     }
 
     /**
-     * POST  /products : Create a new product.
+     * POST  /products : Crear Producto.
      *
-     * @param productDTO the productDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new productDTO
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param productDTO producto que se va a crear
+     * @return entidad de respuesta con status 201 (Created) y productDTO en el body
+     * @throws URISyntaxException
      */
-    @PostMapping("/products")
+    @PostMapping("/producto")
     public ResponseEntity<ProductDto> createProduct(@RequestBody ProductDto productDTO) throws URISyntaxException, ProductException {
-        log.debug("REST request to save Product : {}", productDTO);
+        log.debug("Request para guardar el Producto : {}", productDTO);
 
-        ProductDto result = productService.save(productDTO);
-        return ResponseEntity.created(new URI("/api/products/" + result.getId()))
+        ProductDto result = productoService.save(productDTO);
+        return ResponseEntity.created(new URI("/api/producto/" + result.getId()))
                 .body(result);
     }
 
     /**
-     * PUT  /products : Updates an existing product.
+     * PUT  /producto : Actualiza un producto existente.
      *
-     * @param productDTO the productDTO to update
-     * @return the ResponseEntity with status 200 (OK) and with body the updated productDTO
+     * @param productDTO producto a actualizar
+     * @return Status 200 (OK) y productDTO en el body
      */
-    @PutMapping("/products")
+    @PutMapping("/product")
     public ResponseEntity<ProductDto> updateProduct(@RequestBody ProductDto productDTO) throws ProductException {
-        log.debug("REST request to update Product : {}", productDTO);
-        ProductDto result = productService.save(productDTO);
+        log.debug("Request para actualizar el Producto : {}", productDTO);
+        ProductDto result = productoService.save(productDTO);
         return ResponseEntity.ok()
                 .body(result);
     }
 
     /**
-     * GET  /products : get all the products.
+     * GET  /product : devuelve los productos
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of products in body
+     * @return Status 200 (OK) and la lista de productos en el body
      */
-    @GetMapping("/products")
+    @GetMapping("/producto")
     public List<ProductDto> getAllProducts() throws ProductException {
-        log.debug("REST request to get all Products");
-        return productService.findAll();
+        log.debug("Request para devolver los Productos");
+        return productoService.findAll();
     }
 
     /**
-     * GET  /products/:id : get the "id" product.
+     * GET  /producto/:id : obtiene el producto dado el Id
      *
-     * @param id the id of the productDTO to retrieve
-     * @return the ResponseEntity with status 200 (OK) and with body the productDTO
+     * @param id identificador del producto que se quiere devolver
+     * @return Status 200 (OK) y el producto en el body
      */
-    @GetMapping("/products/{id}")
+    @GetMapping("/producto/{id}")
     public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) throws ProductException {
-        log.debug("REST request to get Product : {}", id);
+        log.debug("Request para obtener el Producto : {}", id);
 
-        ProductDto productDTO = productService.findOne(id);
+        ProductDto productDTO = productoService.findOne(id);
         return new ResponseEntity<>(productDTO,HttpStatus.OK);
     }
 
     /**
-     * DELETE  /products/:id : delete the "id" product.
+     * DELETE  /products/:id : borra el producto dado el Id.
      *
-     * @param id the id of the productDTO to delete
-     * @return the ResponseEntity with status 200 (OK)
+     * @param id id dentro de productDTO para eliminar el producto
+     * @return Status 200 (OK)
      */
-    @DeleteMapping("/products/{id}")
+    @DeleteMapping("/producto/{id}")
     public ResponseEntity<Void> deleteProduct(@PathVariable Long id) throws ProductException {
-        log.debug("REST request to delete Product : {}", id);
-        productService.delete(id);
+        log.debug("Request para eliminar el Producto : {}", id);
+        productoService.delete(id);
         return ResponseEntity.ok().build();
     }
 

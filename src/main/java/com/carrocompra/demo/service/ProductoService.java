@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Service interface for the Client entity.
  */
-public interface ProductService {
+public interface ProductoService {
 
     ProductDto save(ProductDto productDto) throws ProductException;
 

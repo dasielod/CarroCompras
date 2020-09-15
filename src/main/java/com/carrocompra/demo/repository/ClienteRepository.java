@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * Spring Data  repository for the Client entity.
  */
 @Repository
-public interface ClientRepository extends JpaRepository<Client, Long> {
+public interface ClienteRepository extends JpaRepository<Client, Long> {
 
 }

@@ -2,7 +2,7 @@ package com.carrocompra.demo.service.impl;
 
 import com.carrocompra.demo.domain.Product;
 import com.carrocompra.demo.dto.ProductDto;
-import com.carrocompra.demo.service.ProductService;
+import com.carrocompra.demo.service.ProductoService;
 import com.carrocompra.demo.dto.mapper.ProductMapper;
 import com.carrocompra.demo.exceptions.ProductException;
 import com.carrocompra.demo.repository.ProductoRepository;
@@ -19,7 +19,7 @@ import java.util.List;
 @Service
 @Transactional
 @Log4j2
-public class ProductServiceImpl implements ProductService {
+public class ProductoServiceImpl implements ProductoService {
 
     @Autowired
     private ProductoRepository productoRepository;
@@ -27,55 +27,35 @@ public class ProductServiceImpl implements ProductService {
     private ProductMapper productMapper;
 
     /**
-     * Save a product.
+     * Guardar Producto
      *
-     * @param productDto the entity to save
-     * @return the persisted entity
+     * @param productDto entidad de prodcuto a guardar
+     * @return entidad que se obtiene al guardar el prodcuto
      */
     public ProductDto save(ProductDto productDto) throws ProductException {
-        log.debug("Request to save Product : {}", productDto);
+        log.debug("Request para salvar el prudcto : {}", productDto);
 
         try{
             Product product = productMapper.toEntity(productDto);
             product = productoRepository.save(product);
             return productMapper.toDto(product);
         } catch (Exception ex) {
-            throw new ProductException(String.format("An error occurred while persisting the product: %s", ex.getMessage()));
+            throw new ProductException(String.format("Ocurrió un error al salvar el producto: %s", ex.getMessage()));
         }
     }
-
     /**
-     * Get one product by id.
+     * Obtener por id
      *
-     * @param id the id of the entity
-     * @return the entity
-     */
-    @Transactional(readOnly = true)
-    public ProductDto findOne(Long id) throws ProductException {
-        log.debug("[ProductService] - findOne {} " + "productId: " + id);
-
-        try{
-            return productMapper.toDto(this.findById(id));
-        } catch (ProductException e) {
-            throw e;
-        } catch (Exception ex) {
-            throw new ProductException(String.format("An error occurred getting a product by id: %s", ex.getMessage()));
-        }
-    }
-
-    /**
-     * Get one product by id.
-     *
-     * @param id the id of the entity
-     * @return the entity
+     * @param id
+     * @return entidad de producto
      */
     @Transactional(readOnly = true)
     public Product findById(Long id) throws ProductException {
-        log.debug("[ProductService] - findById {} " + "productId: " + id);
+        log.debug("[ProductoService] - findById {} " + "productId: " + id);
 
         try{
             return productoRepository.findById(id)
-                    .orElseThrow(() -> new ProductException(String.format("There is no product with id %s", id)));
+                    .orElseThrow(() -> new ProductException(String.format("no existe producto con ese id %s", id)));
         } catch (Exception ex) {
             throw ex;
         }
@@ -83,33 +63,52 @@ public class ProductServiceImpl implements ProductService {
 
 
     /**
-     * Get all Products.
+     * Obtener producto por id
      *
-     * @return the list of entities
+     * @param id
+     * @return la entidad producto
      */
     @Transactional(readOnly = true)
-    public List<ProductDto> findAll() throws ProductException {
-        log.debug("[ProductService] - getAll {}");
+    public ProductDto findOne(Long id) throws ProductException {
+        log.debug("[ProductoService] - findOne {} " + "productId: " + id);
 
         try{
-            return productMapper.toDto(productoRepository.findAll());
+            return productMapper.toDto(this.findById(id));
+        } catch (ProductException e) {
+            throw e;
         } catch (Exception ex) {
-            throw new ProductException(String.format("An error occurred getting the product list: %s", ex.getMessage()));
+            throw new ProductException(String.format("Ocurrió un error al obtener un producto por id: %s", ex.getMessage()));
         }
     }
 
     /**
-     * Delete the product by id.
+     * Obtener todos los productos
      *
-     * @param id the id of the entity
+     * @return lista de entidades de productos
+     */
+    @Transactional(readOnly = true)
+    public List<ProductDto> findAll() throws ProductException {
+        log.debug("[ProductoService] - getAll {}");
+
+        try{
+            return productMapper.toDto(productoRepository.findAll());
+        } catch (Exception ex) {
+            throw new ProductException(String.format("Error al obtener la lista de productos: %s", ex.getMessage()));
+        }
+    }
+
+    /**
+     * Eliminar un producto por su id
+     *
+     * @param id
      */
     public void delete(Long id) throws ProductException {
-        log.info("[ProductService] - deletePeripheralDeviceFromGateway {} " + "productId: " + id);
+        log.info("[ProductoService] - delete {} " + "productId: " + id);
 
         try{
             productoRepository.deleteById(id);
         } catch (Exception ex) {
-            throw new ProductException(String.format("An error occurred getting the product list: %s", ex.getMessage()));
+            throw new ProductException(String.format("Ocurrio un error al eliminar el producto: %s", ex.getMessage()));
         }
     }
 }

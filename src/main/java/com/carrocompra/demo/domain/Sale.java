@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.domain;
+package com.carrocompra.demo.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;

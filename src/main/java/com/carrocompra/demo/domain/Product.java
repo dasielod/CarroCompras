@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.domain;
+package com.carrocompra.demo.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

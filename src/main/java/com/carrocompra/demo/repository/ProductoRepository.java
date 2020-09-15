@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
  * Spring Data  repository for the Product entity.
  */
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductoRepository extends JpaRepository<Product, Long> {
 
 }

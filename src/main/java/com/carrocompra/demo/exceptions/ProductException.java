@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.exceptions;
+package com.carrocompra.demo.exceptions;
 
 public class ProductException extends Exception {
     public ProductException(String message) {

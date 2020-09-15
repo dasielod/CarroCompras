@@ -13,10 +13,10 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoApplication.class)
-public class ProductServiceImplTest implements TestConstants {
+public class ProductoServiceImplTest implements TestConstants {
 
     @Autowired
-    private ProductServiceImpl service;
+    private ProductoServiceImpl service;
 
     @Before
     public void setUp() throws Exception {

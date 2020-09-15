@@ -1,27 +1,24 @@
-Hello World sample shows how to deploy [Carrito-Compra](https://gitlab.com/softdevelop/carrito-compra/) RESTful web service application with [Docker](https://www.docker.com/)
+Hello World sample shows how to deploy [Carrito-Compra](https://github.com/dasielod/CarroCompras) RESTful web service application with [Docker](https://www.docker.com/)
 
 #### Prerequisite
 
 Installed:   
-[Docker](https://www.docker.com/)   
-[git](https://www.digitalocean.com/community/tutorials/how-to-contribute-to-open-source-getting-started-with-git)    
-[Docker-Compose](https://docs.docker.com/compose/install/)   
 [Java 1.8](https://www.oracle.com/technetwork/java/javase/overview/index.html)   
 [Maven 3.x](https://maven.apache.org/install.html)
+[Docker](https://www.docker.com/)   
+[Docker-Compose](https://docs.docker.com/compose/install/)   
 
 #### Steps
 
 ##### Clone source code from git
 ```
-$  git clone https://gitlab.com/softdevelop/carrito-compra.git .
+$  git clone https://github.com/dasielod/CarroCompras.git .
 ```
 
 ##### Build Maven project
 ```
-If running enviroment is Docker
-    Replace application.properties database connection line with  spring.datasource.url=jdbc:postgresql://demo-postgres:5432/tiendacarrito
-Else
-    Replace application.properties database connection line with  spring.datasource.url=jdbc:postgresql://localhost:5432/tiendacarrito    
+Con Docker cambiar la conexion a base de datos que se encuentra en application.properties por spring.datasource.url=jdbc:postgresql://demo-postgres:5432/carrocompra
+Si no usa Docker cambiar la conexion a base de datos que se encuentra en application.properties por spring.datasource.url=jdbc:postgresql://localhost:5432/carrocompra    
 
 $ mvn clean install .
 ```
@@ -37,7 +34,7 @@ $ mvn sprintboot:run .
 $ curl http://localhost:8080/actuator/health
 ```
 
-the respone should be:
+Debe recibir como respuesta:
 ```
 {"status":"UP","components":{"db":{"status":"UP","details":{"database":"PostgreSQL","validationQuery":"isValid()"}},"diskSpace":{"status":"UP","details":{"total":244549410816,"free":18844389376,"threshold":10485760,"exists":true}},"ping":{"status":"UP"}}}
 ```
@@ -55,7 +52,7 @@ $ docker-compose up
 $ curl http://localhost:8080/actuator/health
 ```
 
-the respone should be:
+Debe recibir como respuesta:
 ```
 {"status":"UP","components":{"db":{"status":"UP","details":{"database":"PostgreSQL","validationQuery":"isValid()"}},"diskSpace":{"status":"UP","details":{"total":244549410816,"free":18844389376,"threshold":10485760,"exists":true}},"ping":{"status":"UP"}}}
 ```
@@ -65,16 +62,4 @@ the respone should be:
 docker-compose down
 ```
 
-##### RxJava API description (getAllSalesByUserId):
-```
-In this Api the user get All sales for clientId in path param:
-request: api/sales/{userId}
-response: [
-              {
-                  "id": 1,
-                  "date": null,
-                  "clientId": 1,
-                  "clientName": "Yosley"
-              }
-          ]
-```
+

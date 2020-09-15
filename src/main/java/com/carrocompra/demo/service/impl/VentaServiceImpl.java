@@ -5,7 +5,7 @@ import com.carrocompra.demo.domain.Sale;
 import com.carrocompra.demo.domain.SaleDetail;
 import com.carrocompra.demo.dto.ProductDto;
 import com.carrocompra.demo.dto.SaleDto;
-import com.carrocompra.demo.service.SaleService;
+import com.carrocompra.demo.service.VentaService;
 import com.carrocompra.demo.dto.mapper.ProductMapper;
 import com.carrocompra.demo.dto.mapper.SaleMapper;
 import com.carrocompra.demo.repository.DetalleVentaRepository;
@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 @Service
 @Transactional
 @Slf4j
-public class SaleServiceImpl implements SaleService {
+public class VentaServiceImpl implements VentaService {
 
     private final VentaRepository ventaRepository;
     private final DetalleVentaRepository detalleVentaRepository;
@@ -36,7 +36,7 @@ public class SaleServiceImpl implements SaleService {
     private SaleMapper saleMapper;
     private ProductMapper productMapper;
 
-    public SaleServiceImpl(VentaRepository ventaRepository, DetalleVentaRepository detalleVentaRepository, SaleMapper saleMapper, ProductMapper productMapper) {
+    public VentaServiceImpl(VentaRepository ventaRepository, DetalleVentaRepository detalleVentaRepository, SaleMapper saleMapper, ProductMapper productMapper) {
         this.ventaRepository = ventaRepository;
         this.detalleVentaRepository = detalleVentaRepository;
         this.saleMapper = saleMapper;
@@ -46,35 +46,21 @@ public class SaleServiceImpl implements SaleService {
     /**
      * Save a sale.
      *
-     * @param saleDto the entity to save
-     * @return the persisted entity
+     * @param saleDto la entidad a salvar
+     * @return la nueva entidad
      */
     public SaleDto save(SaleDto saleDto) {
-        log.debug("Request to save Sale : {}", saleDto);
+        log.debug("Request para guardar la venta : {}", saleDto);
         Sale sale = saleMapper.toEntity(saleDto);
         sale = ventaRepository.save(sale);
         return saleMapper.toDto(sale);
     }
 
-
     /**
-     * Get all sales.
+     * Get ventas por id
      *
-     * @return the list of entities
-     */
-    @Transactional(readOnly = true)
-    public List<SaleDto> findAll() {
-        log.debug("Request to get all sales");
-        return ventaRepository.findAll().stream()
-                .map(saleMapper::toDto)
-                .collect(Collectors.toCollection(LinkedList::new));
-    }
-
-    /**
-     * Get all sales by id.
-     *
-     * @param id the id of the entity
-     * @return Optional of Sale
+     * @param id id de la venta a buscar
+     * @return Optional de venta
      */
     @Transactional(readOnly = true)
     public Optional<SaleDto> findOne(Long id) {
@@ -84,11 +70,26 @@ public class SaleServiceImpl implements SaleService {
     }
 
     /**
-     * Create a new SaleDetail.
+     * Get todas las ventas
      *
-     * @param products the product list of sale to create
-     * @param clientId the id of client
-     * @return the persisted entity
+     * @return lista de ventas
+     */
+    @Transactional(readOnly = true)
+    public List<SaleDto> findAll() {
+        log.debug("Request para obtener todas las ventas");
+        return ventaRepository.findAll().stream()
+                .map(saleMapper::toDto)
+                .collect(Collectors.toCollection(LinkedList::new));
+    }
+
+
+
+    /**
+     * Create a nuevo detalle de ventas
+     *
+     * @param products lista de producto de la venta que se realiza
+     * @param clientId id del cliente
+     * @return la entidad salvada
      */
     @Override
     public SaleDto createSaleDetail(Long clientId, List<ProductDto> products) {

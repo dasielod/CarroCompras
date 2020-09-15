@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.annotations;
+package com.carrocompra.demo.annotations;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;

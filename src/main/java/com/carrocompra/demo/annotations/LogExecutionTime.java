@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.annotations;
+package com.carrocompra.demo.annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,12 +1,12 @@
 version: '2.1'
 services:
-  demo-postgres:
-    container_name: demo-postgres
+  prueba-postgres:
+    container_name: prueba-postgres
     image: 'postgres'
     environment:
-      POSTGRES_DB: tiendacarrito
+      POSTGRES_DB: carrocompra
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: descarga
+      POSTGRES_PASSWORD: postgres
     ports:
       - '5432:5432'
     restart: always
@@ -17,8 +17,8 @@ services:
       interval: 10s
       timeout: 5s
       retries: 5
-  demo-app:
-    image: demo-app
+  prueba-app:
+    image: prueba-app
     build:
       context: ./
       dockerfile: Dockerfile
@@ -28,7 +28,7 @@ services:
     networks:
       - back-tier
     depends_on:
-      demo-postgres:
+      prueba-postgres:
           condition: service_healthy
 networks:
   back-tier:

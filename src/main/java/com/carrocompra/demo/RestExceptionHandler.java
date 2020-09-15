@@ -1,10 +1,9 @@
-package com.shoppingcar.demo;
+package com.carrocompra.demo;
 
+import com.carrocompra.demo.apierror.ApiError;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.shoppingcar.demo.apierror.ApiError;
-import com.shoppingcar.demo.apierror.MyError;
-import com.shoppingcar.demo.controller.utils.ControllerMapper;
-import com.shoppingcar.demo.exceptions.ProductException;
+import com.carrocompra.demo.controller.utils.ControllerMapper;
+import com.carrocompra.demo.exceptions.ProductException;
 import lombok.extern.slf4j.Slf4j;
 import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.core.Ordered;
@@ -26,8 +25,6 @@ import org.springframework.web.method.annotation.MethodArgumentTypeMismatchExcep
 import org.springframework.web.servlet.NoHandlerFoundException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import java.lang.reflect.Constructor;
-import java.lang.reflect.Method;
 import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.List;

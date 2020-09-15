@@ -1,4 +1,4 @@
-package com.shoppingcar.demo.dto.mapper;
+package com.carrocompra.demo.dto.mapper;
 
 import java.util.List;
 

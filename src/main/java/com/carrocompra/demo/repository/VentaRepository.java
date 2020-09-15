@@ -11,7 +11,7 @@ import java.util.List;
  * Spring Data  repository for the Sale entity.
  */
 @Repository
-public interface SaleRepository extends JpaRepository<Sale, Long> {
+public interface VentaRepository extends JpaRepository<Sale, Long> {
 
     List<Sale> findAllByClient_Id( Long id);
 }

@@ -2,7 +2,7 @@ package com.carrocompra.demo.controller;
 
 import com.carrocompra.demo.dto.ProductDto;
 import com.carrocompra.demo.dto.SaleDto;
-import com.carrocompra.demo.service.SaleService;
+import com.carrocompra.demo.service.VentaService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,12 +15,12 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 @Slf4j
-public class SaleController {
+public class VentaController {
 
-	private final SaleService saleService;
+	private final VentaService ventaService;
 
-	public SaleController(SaleService saleService) {
-		this.saleService = saleService;
+	public VentaController(VentaService ventaService) {
+		this.ventaService = ventaService;
 	}
 
     public static void writeLog(String text) {
@@ -28,53 +28,59 @@ public class SaleController {
     }
 
     /**
-     * POST  /sales : Create a new sale.
+     * POST  /ventas : Crea una nueva venta.
      *
-     * @param saleDTO the saleDTO to create
-     * @return the ResponseEntity with status 201 (Created) and with body the new saleDTO
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param saleDTO la venta que se va a crear
+     * @return Status 201 (Created) Y saleDTO creada en el body
+     * @throws URISyntaxException
      */
-    @PostMapping("/sales")
+    @PostMapping("/ventas")
     public ResponseEntity<SaleDto> createSale(@RequestBody SaleDto saleDTO) throws URISyntaxException {
-        log.debug("REST request to save Sale : {}", saleDTO);
+        log.debug("Request para salvar la Venta : {}", saleDTO);
 
-        SaleDto result = saleService.save(saleDTO);
-        return ResponseEntity.created(new URI("/api/sales/" + result.getId()))
+        SaleDto result = ventaService.save(saleDTO);
+        return ResponseEntity.created(new URI("/api/ventas/" + result.getId()))
                 .body(result);
     }
 
 	/**
-     * GET  /sales : get all the sales.
+     * GET  /ventas : obtener todas las ventas.
      *
-     * @return the ResponseEntity with status 200 (OK) and the list of sales in body
+     * @return Status 200 (OK) y la lista de las ventas en el body
      */
-    @GetMapping("/sales")
+    @GetMapping("/ventas")
     public List<SaleDto> getAllSales() {
-        log.debug("REST request to get all sales");
-        return saleService.findAll();
-    }
-
-
-    @GetMapping("/sales/{id}")
-    public Single<List<SaleDto>> getAllSalesByUserId(@PathVariable Long id) {
-        log.debug("Request to get all sales from userId : {}", id);
-        return saleService.findAllSalesById(id);
+        log.debug("Request para obtener todas las ventas");
+        return ventaService.findAll();
     }
 
     /**
-     * POST  /sales : Create a new saleDetail.
+     * POST  /ventas : Crear detalle de la venta
      *
-     * @param products the product list of sale to create
-     * @param clientId the id of client
-     * @return the ResponseEntity with status 201 (Created) and with body the new saleDTO
-     * @throws URISyntaxException if the Location URI syntax is incorrect
+     * @param products lista de productos para el cual se registra el detalle de la venta
+     * @param clientId id del cliente
+     * @return the Status 201 (Created) y el objeto saleDTO en el body
+     * @throws URISyntaxException
      */
 
-    @PostMapping("/sales/detail/{clientId}")
+    @PostMapping("/ventas/detalle/{clientId}")
     public ResponseEntity<SaleDto> createSaleDetail(@RequestBody List<ProductDto> products, @PathVariable Long clientId) throws URISyntaxException {
-        log.debug("REST request to save SaleDetail : {}", clientId);
-        SaleDto result = saleService.createSaleDetail(clientId, products);
-        return ResponseEntity.created(new URI("/api/sales/detail/" + result.getId()))
+        log.debug("Request para guardar el detalle de la venta : {}", clientId);
+        SaleDto result = ventaService.createSaleDetail(clientId, products);
+        return ResponseEntity.created(new URI("/api/ventas/detalle/" + result.getId()))
                 .body(result);
     }
+
+    /**
+     * GET /ventas/{id} : obtener las ventas por id de cliente
+     * @param id Id del cliente por el que se consutlan las ventas
+     * @return Status 200 (OK) y la venta en el body
+     */
+    @GetMapping("/ventas/{id}")
+    public Single<List<SaleDto>> getAllSalesByUserId(@PathVariable Long id) {
+        log.debug("Request para obtener las ventas por userId : {}", id);
+        return ventaService.findAllSalesById(id);
+    }
+
+
 }

@@ -15,10 +15,10 @@ import java.util.Optional;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes = DemoApplication.class)
-public class SaleServiceImplTest implements TestConstants {
+public class VentaServiceImplTest implements TestConstants {
 
     @Autowired
-    private SaleServiceImpl service;
+    private VentaServiceImpl service;
 
     @Before
     public void setUp() throws Exception {

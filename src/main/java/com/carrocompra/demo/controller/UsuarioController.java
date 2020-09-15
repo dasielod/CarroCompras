@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import com.carrocompra.demo.dto.User;
+import com.carrocompra.demo.dto.UsuarioDTO;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
@@ -26,7 +26,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @RestController
 @RequestMapping("/auth")
 @Slf4j
-public class UserController {
+public class UsuarioController {
 
     public static void writeLog(String text) {
 
@@ -35,13 +35,13 @@ public class UserController {
     }
 
     @PostMapping(value = "/user")
-    public User login(@RequestParam("user") String username, @RequestParam("password") String pwd) throws IllegalArgumentException {
+    public UsuarioDTO login(@RequestParam("user") String username, @RequestParam("password") String pwd) throws IllegalArgumentException {
 		log.info("REST request to login user: {}", username);
 
 		if (checkUser(username, pwd)) {
-			log.info("User: {} authenticated", username);
+			log.info("Usuario: {} está autenticado", username);
             String token = getJWTToken(username);
-            User user = new User();
+            UsuarioDTO user = new UsuarioDTO();
             user.setUser(username);
             user.setToken(token);
             log.info("REST request to login user: {}", username);
